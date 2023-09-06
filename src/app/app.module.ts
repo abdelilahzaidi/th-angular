@@ -8,6 +8,8 @@ import { UsersComponent } from './users/users.component';
 import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './auth/authInterceptorService';
+import { AuthGuard } from './auth/auth.guard';
 
 
 
@@ -22,7 +24,13 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,UsersModule,AdminModule, HttpClientModule
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide:AuthInterceptorService,
+      multi:true
+    },
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
