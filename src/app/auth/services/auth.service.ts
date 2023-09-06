@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   apiUrl = 'http://localhost:3001'
+
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  currentUser = {};
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +27,7 @@ export class AuthService {
   verifiedUser(token : string) {
     return this.http.get(this.apiUrl + '/auth/user')
   }
+ 
 }
 
 

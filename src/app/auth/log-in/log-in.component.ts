@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent {
-
+  currentUser = {};
   loginForm = this.formBuilder.group({
     email: [''],
     password: ['']
@@ -20,15 +20,13 @@ export class LogInComponent {
     private router: Router
     ) { }
 
-  ngOnInit(): void {
-  }
 
   onSubmit() {
     this.authService.userLogIn(this.loginForm.value).subscribe(
       (data: any) => {
         console.log('return value token', data.token)
         if (data.token) {
-          this.router.navigate(['/'])
+          this.router.navigate(['/user'])
           window.localStorage.setItem('token', data.token)
         }
       }

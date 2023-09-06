@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,22 @@ export class AppComponent {
   title = 'client-th';
   user : any
 
+ 
+
   constructor(
     private modalService: NgbModal,
-    private authService : AuthService) {
+    private authService : AuthService,
+    private router: Router
+    ) {
 
     if (this.authService.getAuthToken()) {
       this.getUser()
     }
 
+  }
+
+  isLoggedIn() : boolean {
+    return !!this.authService.getAuthToken()
   }
 
   private getUser() {
@@ -31,5 +40,11 @@ export class AppComponent {
 
     this.modalService.open(modal);
 
+  }
+
+  doLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['auth/login']);
+    console.log('logout')
   }
 }

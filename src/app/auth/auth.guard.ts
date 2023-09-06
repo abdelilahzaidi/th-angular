@@ -12,17 +12,18 @@ export class AuthGuard implements CanActivate {
 
     isLoggedIn() {
         let token: any = window.localStorage.getItem('token')
-
+        
         if (!token) {
-            this.router.navigate(['/'])
+            this.router.navigate(['/auth/login'])
             return false
         } else {
             return this.authService.verifiedUser(token).pipe(
                 map(res => {
-                    if (res === 'Authorized') {
+                    console.log(res)
+                    if (res) {
                         return true
                     } else {
-                        this.router.navigate(['/'])
+                        this.router.navigate(['/auth/login'])
                         return false
                     }
                 }),

@@ -7,10 +7,12 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 
 
+
 @NgModule({
   declarations: [
     LogInComponent,
-    SignUpComponent
+    SignUpComponent,
+
   ],
   imports: [
     CommonModule,
