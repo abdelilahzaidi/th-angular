@@ -25,11 +25,11 @@ export class LogInComponent {
 
   onSubmit() {
     this.authService.userLogIn(this.loginForm.value).subscribe(
-      (token: any) => {
-        console.log('return value token', token.access_token)
-        if (token) {
+      (data: any) => {
+        console.log('return value token', data.token)
+        if (data.token) {
           this.router.navigate(['/'])
-          window.localStorage.setItem('token', token.access_token)
+          window.localStorage.setItem('token', data.token)
         }
       }
     )

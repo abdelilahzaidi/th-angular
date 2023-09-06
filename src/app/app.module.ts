@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersComponent } from './users/users.component';
 import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/authInterceptorService';
 import { AuthGuard } from './auth/auth.guard';
 
@@ -26,7 +26,8 @@ import { AuthGuard } from './auth/auth.guard';
   ],
   providers: [
     {
-      provide:AuthInterceptorService,
+      provide:HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
       multi:true
     },
     AuthGuard

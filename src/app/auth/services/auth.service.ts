@@ -21,8 +21,8 @@ export class AuthService {
     return window.localStorage.getItem('token')
   }
 
-  verifiedUser(token: any) {
-    return this.http.get(this.apiUrl + '/auth/user' + token)
+  verifiedUser(token : string) {
+    return this.http.get(this.apiUrl + '/auth/user')
   }
 }
 
