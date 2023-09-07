@@ -36,9 +36,9 @@ export class LogInComponent {
           res => {
               console.log(res)
               if (res.status ==='member') {
-                this.router.navigate(['/admin/user'])
+                this.router.navigate(['/users'])
               } else {
-                  this.router.navigate(['/'])
+                  this.router.navigate(['/admin/admin-home'])
               }
           }
         )

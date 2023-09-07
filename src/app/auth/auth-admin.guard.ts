@@ -4,28 +4,19 @@ import { catchError, map, of } from "rxjs";
 import { AuthService } from "./services/auth.service";
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuardAdmin implements CanActivate {
     constructor(private authService: AuthService,
         private router: Router
         ) {}
 
-    
-
-
-
-        //Verifie que le user est authentifier
-
+        //Verifier que le user est un admin
         isLoggedIn() {
+            console.log("pass")
             let token: any = window.localStorage.getItem('token')
-            
-            if (!token) {
-                this.router.navigate(['/auth/login'])
-                return false
-            } else {
                 return this.authService.verifiedUser(token).pipe(
                     map(res => {
                         console.log(res)
-                        if (res) {
+                        if (res.status === "admin") {
                             return true
                         } else {
                             this.router.navigate(['/auth/login'])
@@ -36,9 +27,9 @@ export class AuthGuard implements CanActivate {
                         return of(false)
                     })
                 )
-            } 
-    
         }
+
+
 
 
 
