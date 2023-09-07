@@ -9,32 +9,54 @@ export class AuthGuard implements CanActivate {
         private router: Router
         ) {}
 
-
-    isLoggedIn() {
-        let token: any = window.localStorage.getItem('token')
-        
-        if (!token) {
-            this.router.navigate(['/auth/login'])
-            return false
-        } else {
-            return this.authService.verifiedUser(token).pipe(
-                map(res => {
-                    console.log(res)
-                    if (res) {
-                        return true
-                    } else {
-                        this.router.navigate(['/auth/login'])
-                        return false
-                    }
-                }),
-                catchError((err) => {
-                    return of(false)
-                })
-            )
+        //Verifier que le user est un admin
+        isLoggedIn() {
+            console.log("pass")
+            let token: any = window.localStorage.getItem('token')
+                return this.authService.verifiedUser(token).pipe(
+                    map(res => {
+                        console.log(res)
+                        if (res.status === "admin") {
+                            return true
+                        } else {
+                            this.router.navigate(['/auth/login'])
+                            return false
+                        }
+                    }),
+                    catchError((err) => {
+                        return of(false)
+                    })
+                )
         }
 
 
-    }
+        //Verifie que le user est authentifier
+
+        // isLoggedIn() {
+        //     let token: any = window.localStorage.getItem('token')
+            
+        //     if (!token) {
+        //         this.router.navigate(['/auth/login'])
+        //         return false
+        //     } else {
+        //         return this.authService.verifiedUser(token).pipe(
+        //             map(res => {
+        //                 console.log(res)
+        //                 if (res) {
+        //                     return true
+        //                 } else {
+        //                     this.router.navigate(['/auth/login'])
+        //                     return false
+        //                 }
+        //             }),
+        //             catchError((err) => {
+        //                 return of(false)
+        //             })
+        //         )
+        //     }
+    
+    
+        // }
 
 
     canActivate() {

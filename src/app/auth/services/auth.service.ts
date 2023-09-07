@@ -25,8 +25,10 @@ export class AuthService {
   }
 
   verifiedUser(token : string) {
-    return this.http.get(this.apiUrl + '/auth/user')
+    return this.http.get<any>(this.apiUrl + '/auth/user')
   }
+
+  
  
 }
 
